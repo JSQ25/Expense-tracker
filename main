@@ -1,0 +1,84 @@
+categories = {}
+
+def addExpenses():
+    while True:
+        category_name = input("Enter category name: ").strip().lower()
+
+        if category_name not in categories:
+            categories[category_name] = []
+
+        taga = input("Date: ").strip()
+        tagb = input("Money used: ").strip()
+
+
+        new_entry = {"Date": taga, "Expense": tagb}
+
+        # Append the dictionary to the category list
+        categories[category_name].append(new_entry)
+
+        # Display entries
+        print("\nCurrent data:")
+        for category, entries in categories.items():
+            print(f"Category: {category}")
+            for i, entry in enumerate(entries, start=1):
+                print(f"  {i}: {entry}")
+
+        # Ask if the user wants to continue
+        continue_input = input("\nDo you want to add more? (yes/no): ").strip().lower()
+        if continue_input not in ["yes", "y"]:
+            break
+
+    mainmenu()
+
+def viewExpenses():
+    print("\nCurrent data:")
+    for category, entries in categories.items():
+        print(f"Category: {category}")
+        for i, entry in enumerate(entries, start=1):
+            print(f"  {i}: {entry}")
+
+    mainmenu()
+
+def deleteExpense():
+    category = input("Enter the category of the expense to delete: ").strip().lower()
+    date = input("Enter the date of the expense: ").strip().lower()
+
+    if category in categories:
+        # Remove entries that match the date
+        categories[category] = [expense for expense in categories[category] if expense["Date"] != date]
+
+        # Remove category if no expenses left
+        if not categories[category]:
+            del categories[category]
+            print(f"'{category}' removed because there are no more expenses.")
+        else:
+            print(f"Expense on {date} deleted.")
+
+    else:
+        print(f"'{category}' not found.")
+
+    mainmenu()
+
+def mainmenu():
+    print("\nExpense Tracker Menu:")
+    print("1. Add Expenses")
+    print("2. View Expenses")
+    print("3. Delete Expenses")
+    print("4. Exit")
+
+    menuInput = input("Choose an option: ").strip()
+
+    if menuInput == "1":
+        addExpenses()
+    elif menuInput == "2":
+        viewExpenses()
+    elif menuInput == "3":
+        deleteExpense()
+    elif menuInput == "4":
+        print("Goodbye!")
+        return
+    else:
+        print("Invalid input. Please try again.")
+        mainmenu()
+
+mainmenu()
