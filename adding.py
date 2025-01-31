@@ -16,7 +16,7 @@ def addExpenses():
         # Append the dictionary to the category list
         categories[category_name].append(new_entry)
         
-        # Display the categories and their entries
+        #display entries
         print("\nCurrent data:")
         for category, entries in categories.items():
             print(f"Category: {category}")
@@ -34,10 +34,15 @@ def addExpenses():
 
 
 def mainmenu():
-    menuInput = input("Expense Tracker Menu:\n1. Add Expenses\n2. Exit")
+    menuInput = input("Expense Tracker Menu:\n1. Add Expenses\n2. View Expenses\n")
     if menuInput == "1":
         addExpenses()
     if menuInput == "2":
-        print('Cya next time')
+        print("\nCurrent data:")
+        for category, entries in categories.items():
+            print(f"Category: {category}")
+            for i, entry in enumerate(entries, start=1):
+                print(f"  {i}: {entry}")
+        mainmenu()
 
 mainmenu()
