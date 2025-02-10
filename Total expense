@@ -1,0 +1,11 @@
+def totalExpenses():
+    total = 0
+    for category, entries in categories.items():
+        for entry in entries:
+            try:
+                total += float(entry["Expense"])
+            except ValueError:
+                print(f"Skipping invalid expense entry: {entry}")
+    print(f"Total expenses: ${total:.2f}")
+
+    mainmenu()
