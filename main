@@ -59,12 +59,25 @@ def deleteExpense():
 
     mainmenu()
 
+def totalExpenses():
+    total = 0
+    for category, entries in categories.items():
+        for entry in entries:
+            try:
+                total += float(entry["Expense"])
+            except ValueError:
+                print(f"Skipping invalid expense entry: {entry}")
+    print(f"Total expenses: ${total:.2f}")
+
+    mainmenu()
+    
 def mainmenu():
     print("\nExpense Tracker Menu:")
     print("1. Add Expenses")
     print("2. View Expenses")
     print("3. Delete Expenses")
-    print("4. Exit")
+    print("4. view total expense")
+    print("5. Exit")
 
     menuInput = input("Choose an option: ").strip()
 
@@ -75,10 +88,12 @@ def mainmenu():
     elif menuInput == "3":
         deleteExpense()
     elif menuInput == "4":
+        totalExpenses()
+    elif menuInput == "5":
         print("Goodbye!")
         return
     else:
         print("Invalid input. Please try again.")
         mainmenu()
-
 mainmenu()
+
