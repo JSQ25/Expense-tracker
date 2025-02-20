@@ -1,19 +1,20 @@
-categories = {}
+categories = {} # creates a dictionary of categories
+
 
 def addExpenses():
     while True:
-        category_name = input("Enter category name: ").strip().lower()
+        category_name = input("Enter category name: ").strip().lower() # asks for the category name
 
-        if category_name not in categories:
-            categories[category_name] = []
+        if category_name not in categories: # if the category name is not found within the dictionary a new key is created within the dictionary
+            categories[category_name] = [] # a list is assigned to the new key. The purpose of this list is to add new entries into the same category.
 
-        taga = input("Date: ").strip()
-        tagb = input("Money used: ").strip()
+        taga = input("Date: ").strip() # asks for date
+        tagb = input("Money used: ").strip() # asks for expenses
 
 
-        new_entry = {"Date": taga, "Expense": tagb}
+        new_entry = {"Date": taga, "Expense": tagb} # The new entry is then created with the date and money
 
-        # Append the dictionary to the category list
+        # Append the new entry into the category 
         categories[category_name].append(new_entry)
 
         # Display entries
@@ -28,8 +29,9 @@ def addExpenses():
         if continue_input not in ["yes", "y"]:
             break
 
-    mainmenu()
+    mainmenu() # call the main menu to return to the main function
 
+# Displays entries
 def viewExpenses():
     print("\nCurrent data:")
     for category, entries in categories.items():
@@ -39,9 +41,10 @@ def viewExpenses():
 
     mainmenu()
 
+
 def deleteExpense():
-    category = input("Enter the category of the expense to delete: ").strip().lower()
-    date = input("Enter the date of the expense: ").strip().lower()
+    category = input("Enter the category of the expense to delete: ").strip().lower() # user inputs the category name
+    date = input("Enter the date of the expense: ").strip().lower() # user inputs the date
 
     if category in categories:
         # Remove entries that match the date
@@ -64,13 +67,14 @@ def totalExpenses():
     for category, entries in categories.items():
         for entry in entries:
             try:
-                total += float(entry["Expense"])
+                total += float(entry["Expense"]) # adds all the entries
             except ValueError:
                 print(f"Skipping invalid expense entry: {entry}")
     print(f"Total expenses: ${total:.2f}")
 
     mainmenu()
-    
+
+# display the main menu
 def mainmenu():
     print("\nExpense Tracker Menu:")
     print("1. Add Expenses")
